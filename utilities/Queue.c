@@ -3,5 +3,70 @@
  * \summary {This is the implement of Queue structure in this project.}
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+
+#include <ErrorCodes.h>
+
 struct Queue {
+  int capacity;
+  int head;
+  int tail;
+  void const * * ppArray;
 };
+
+int Queue_Put (struct Queue * pQueue, void const * pObj) {
+  if (pQueue == NULL) EC_NULL_POINTER;
+  if (pObj == NULL) EC_NULL_POINTER;
+
+  if (pQueue -> head > pQueue -> tail) {
+    if (pQueue -> head < pQueue -> capacity - 1) {
+      ++ (pQueue -> head);
+    } else {
+      if (pQueue -> tail > 0) {
+        pQueue -> head = 0;
+      } else {
+        return EC_QUEUE_OVERFLOW;
+      }
+    }
+  } else if (pQueue -> head < pQueue -> tail) {
+    if (pQueue -> head < pQueue -> tail - 1) {
+      ++ (pQueue -> head);
+    } else {
+      return EC_QUEUE_OVERFLOW;
+    }
+  } else {
+    if (pQueue -> head == -1) {
+      ++ (pQueue -> head);
+    } else {
+      return EC_QUEUE_OVERFLOW;
+    }
+  }
+
+  pQueue -> ppArray [pQueue -> head] = pObj;
+  return EC_OK;
+}
+
+int Queue_Get (struct Queue * pQueue, void * * ppObj) {
+  if (pQueue == NULL) return EC_NULL_POINTER;
+  if (ppObj == NULL) return EC_NULL_POINTER;
+
+  if (pQueue -> head > pQueue -> tail) {
+    ++ (pQueue -> tail);
+  } else if (pQueue -> head < pQueue -> tail) {
+    if (pQueue -> tail < pQueue -> capacity - 1) {
+      ++ (pQueue -> tail);
+    } else {
+      if (pQueue -> head > 0) {
+        pQueue -> tail = 0;
+      } else {
+        return EC_QUEUE_OVERFLOW;
+      }
+    }
+  } else {
+    return EC_QUEUE_OVERFLOW;
+  }
+
+  * ppObj = pQueue -> ppArray [pQueue -> tail];
+  return EC_OK;
+}
