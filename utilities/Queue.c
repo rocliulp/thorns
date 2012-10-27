@@ -15,6 +15,36 @@ struct Queue {
   void const * * ppArray;
 };
 
+int Queue_New (struct Queue * * ppQueue, int capacity) {
+  void * pArray = NULL;
+  struct Queue * pQueue = NULL;
+  if (ppQueue == NULL) return EC_NULL_POINTER;
+  if (capacity < 1) return EC_OUT_OF_RANGE;
+
+  pArray = malloc (sizeof (void const *));
+  if (pArray == NULL) return EC_OUT_OF_MEMORY;
+  pQueue = malloc (sizeof (struct Queue));
+  if (pQueue == NULL) {
+    free (pArray);
+    return EC_OUT_OF_MEMORY;
+  }
+  pQueue -> capacity = capacity;
+  pQueue -> head = -1;
+  pQueue -> tail = -1;
+  pQueue -> ppArray = pArray;
+  
+  * ppQueue = pQueue;
+  return EC_OK;
+}
+
+int Queue_Delete (struct Queue * pQueue) {
+  if (pQueue == NULL) return EC_NULL_POINTER;
+  if (pQueue -> ppArray == NULL) return EC_NULL_POINTER;
+  free (pQueue -> ppArray);
+  free (pQueue -> pQueue);
+  return EC_OK;
+}
+
 int Queue_Put (struct Queue * pQueue, void const * pObj) {
   if (pQueue == NULL) EC_NULL_POINTER;
   if (pObj == NULL) EC_NULL_POINTER;
