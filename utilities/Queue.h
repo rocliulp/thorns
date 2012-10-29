@@ -6,6 +6,8 @@
 #ifndef _QUEUE_H_
 #define _QUEUE_H_
 
+struct Queue;
+
 int Queue_New (struct Queue * * ppQueue, int capacity);
 int Queue_Delete (struct Queue * pQueue);
 

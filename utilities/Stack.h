@@ -6,6 +6,8 @@
 #ifndef _STACK_H_
 #define _STACK_H_
 
+struct Stack;
+
 int Stack_New (struct Stack * * ppStack, int capacity);
 int Stack_Delete (struct Stack* pStack);
 
