@@ -11,5 +11,6 @@ int Queue_Delete (struct Queue * pQueue);
 
 int Queue_Put (struct Queue * pQueue, void const * pObj);
 int Queue_Get (struct Queue * pQueue, void * * ppObj);
+int Queue_IsEmpty (struct Queue * pQueue, int * pEmpty);
 
 #endif

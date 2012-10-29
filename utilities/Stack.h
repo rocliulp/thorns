@@ -12,5 +12,6 @@ int Stack_Delete (struct Stack* pStack);
 int Stack_Push (struct Stack * pStack, void const * pObj);
 int Stack_Pop (struct Stack * pStack, void const * * ppObj);
 int Stack_GetTop (struct Stack * pStack, void const * * ppObj);
+int Stack_IsEmpty (struct Stack * pStack, int * pEmpty);
 
 #endif

@@ -39,7 +39,7 @@ int Queue_New (struct Queue * * ppQueue, int capacity) {
 
 int Queue_Delete (struct Queue * pQueue) {
   if (pQueue == NULL) return EC_NULL_POINTER;
-  if (pQueue -> ppArray == NULL) return EC_NULL_POINTER;
+  if (pQueue -> ppArray == NULL) return EC_IMPOSSIBLE_CASE;
   free (pQueue -> ppArray);
   free (pQueue -> pQueue);
   return EC_OK;
@@ -98,5 +98,13 @@ int Queue_Get (struct Queue * pQueue, void * * ppObj) {
   }
 
   * ppObj = pQueue -> ppArray [pQueue -> tail];
+  return EC_OK;
+}
+
+int Queue_IsEmpty (struct Queue * pQueue, int * pEmpty) {
+  if (pQueue == NULL) return EC_NULL_POINTER;
+  if (pEmpty == NULL) return EC_NULL_POINTER;
+  if (pQueue -> head == pQueue -> tail) * pEmpty = TRUE;
+  else * pEmpty = FALSE;
   return EC_OK;
 }

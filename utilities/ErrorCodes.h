@@ -33,5 +33,6 @@
 #define EC_OUT_OF_MEMORY      4
 #define EC_OUT_OF_RANGE       5
 #define EC_QUEUE_OVERFLOW     6
+#define EC_STACK_OVERFLOW     7
 
 #endif
